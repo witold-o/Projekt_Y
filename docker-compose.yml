@@ -1,0 +1,51 @@
+# version: "3.8"
+
+# services:
+#   app:
+#     build: .
+#     container_name: task_manager_app
+#     ports:
+#       - "8000:8000"
+#     depends_on:
+#       - db
+#     environment:
+#       - DB_USER=your_user
+#       - DB_PASSWORD=your_password
+#       - DB_NAME=task_db
+#       - DB_HOST=db  # Nazwa usługi bazy danych
+#       - DB_PORT=5432
+
+
+volumes:
+  volume_name:
+    name: volume_name
+services:
+  db:
+    image: postgres:latest
+    user: postgres
+    environment:
+     - POSTGRES_PASSWORD=postgres
+     - POSTGRES_USER=postgres
+     - POSTGRES_DB=postgres-db
+    ports:
+      - "5434:5432"
+    volumes:
+      - volume_name:/var/lib/postgresql/data
+
+
+#   db:
+#     image: postgres:13
+#     container_name: task_manager_db
+#     environment:
+#       POSTGRES_USER: your_user
+#       POSTGRES_PASSWORD: your_password
+#       POSTGRES_DB: task_db
+#       POSTGRES_HOST_AUTH_METHOD: md5
+#     ports:
+#       - "5432:5432"
+#     command: ["postgres", "-c", "listen_addresses=*", "-c", "log_statement=all"]
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+
+# volumes:
+#   postgres_data:
