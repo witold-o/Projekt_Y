@@ -10,7 +10,7 @@ def wait_for_db():
     db_user = os.getenv("DB_USER", "your_user")
     db_password = os.getenv("DB_PASSWORD", "your_password")
     db_name = os.getenv("DB_NAME", "task_db")
-    
+    # przestarzale credentiale
     max_retries = 30
     retry_interval = 2  # seconds
     

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista użytkowników</title>
+</head>
+<body>
+
+    <h1>Lista użytkowników</h1>
+    <ul id="users-list"></ul>
+
+    <script>
+        // Funkcja pobierająca użytkowników z API
+        async function fetchUsers() {
+            try {
+                const response = await fetch("http://localhost:8000/users"); // Zmień port, jeśli używasz innego
+                const users = await response.json();
+
+                // Pobranie elementu listy i dodanie użytkowników
+                const usersList = document.getElementById("users-list");
+                usersList.innerHTML = ""; // Wyczyść listę przed dodaniem nowych danych
+                
+                users.forEach(user => {
+                    const li = document.createElement("li");
+                    li.textContent = `${user.id}: ${user.name}`;
+                    usersList.appendChild(li);
+                });
+            } catch (error) {
+                console.error("Błąd podczas pobierania użytkowników:", error);
+            }
+        }
+
+        // Pobierz użytkowników od razu po załadowaniu strony
+        document.addEventListener("DOMContentLoaded", fetchUsers);
+    </script>
+
+</body>
+</html>

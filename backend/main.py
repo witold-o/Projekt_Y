@@ -3,15 +3,16 @@ from fastapi import Depends
 from typing import List
 
 
-from app import crud
-from app import schemas
-from app import models
+from backend import crud
+from backend import schemas
+from backend import models
 from .database import SessionLocal, engine
 from sqlalchemy.orm import Session
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from backend.models import User, Task
 
 # Inicjalizacja bazy danych
 models.Base.metadata.create_all(bind=engine)
@@ -44,3 +45,8 @@ def create_task(task: schemas.TaskCreate, db: Session = Depends(get_db)):
 @app.get("/tasks/", response_model=List[schemas.Task])
 def get_tasks(db: Session = Depends(get_db)):
     return crud.get_tasks(db)
+
+@app.get("/users")
+def read_users(db: Session = Depends(get_db)):
+    users = db.query(User).all()
+    return users
